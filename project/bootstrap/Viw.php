@@ -9,7 +9,6 @@ class Viw
         if ($position){
             $view = str_replace(".", "/", $view);
         }
-        echo APP_ROOT . "/application/view/$view.php";
         return $this->generateView($view, $params);
     }
 

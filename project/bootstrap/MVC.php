@@ -2,14 +2,12 @@
 
 namespace Core;
 
+use App\controller\menuController;
+
 class MVC
 {
     use Router, UrlEngine;
-    private $request;
 
-    public function __construct(){
-        $this->request = new request();
-    }
     public function run()
     {
 
@@ -33,7 +31,7 @@ class MVC
         $class = new $class();
 
 
-        $class->$method($this->request);
+        $class->$method();
     }
 
     private function match($method, $url)
