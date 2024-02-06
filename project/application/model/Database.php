@@ -3,9 +3,9 @@
 namespace model;
 class Database
 {
-    private $servername = "localhost";
-    private $username = "username";
-    private $password = "password";
+    private $servername = "127.0.0.1";
+    private $username = "root";
+    private $password = "QWERasd<>1234";
     private $dbname = "my_resturant";
     private $conn;
 

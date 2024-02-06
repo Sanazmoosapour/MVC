@@ -1,16 +1,13 @@
 <?php
 namespace App\controller;
 use Core\MVC;
-use Core\Viw;
+use Core\View;
 use model\Food;
 
 class homeController
 {
-    public function controll()
+    public function control()
     {
-        $app=new MVC();
-        $v=new Viw();
-        $v->render('home.index');
-
+        View::render('home.index');
     }
 }

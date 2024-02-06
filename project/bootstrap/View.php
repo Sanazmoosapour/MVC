@@ -1,25 +1,26 @@
 <?php
 namespace Core;
 
-class Viw
+trait View
 {
-    public function render($view, $params = [])
+    public static function render($view, $params = [])
     {
         $position = strpos($view, ".");
         if ($position){
             $view = str_replace(".", "/", $view);
         }
-        return $this->generateView($view, $params);
+        return View::generateView($view, $params);
     }
 
-    private function generateView($view, $params)
+    private static function generateView($view, $params)
     {
+
         foreach ($params as $key => $value){
             $$key = $value;
         }
-
         ob_start();
         require_once APP_ROOT."/application/view/$view.php";
         echo ob_get_clean();
-        return true;    }
+        return true;
+    }
 }

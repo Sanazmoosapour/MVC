@@ -3,8 +3,8 @@ use Core\MVC;
 
 $app = new MVC();
 
-$app::get('/', 'homeController', 'controll');
+$app::get('/', 'homeController', 'control');
 
-$app::post('/index.php', 'menuController', 'menu');
+$app::post('/index.php', 'menuController', 'control');
 
 $app->run();

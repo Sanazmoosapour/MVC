@@ -1,22 +1,29 @@
 <?php
 namespace App\controller;
 
-use Core\Viw;
+use Core\Request;
+use Core\View;
+use model\Food;
 
 class menuController
 {
-    function menu()
+    function control(Request $request)
     {
-        echo "here";
-        $breakFastName = $_POST['break'];
-        echo $breakFastName;
-        $lunchName = $_POST['lunch'];
-        $dinnerName = $_POST['dinner'];
-            echo "here";
-            menu2($breakFastName,$lunchName,$dinnerName);
-            $v=new Viw();
-            $v->render('menu.index');
-
-
+        $breakFastName = $request->data("break");
+        $lunchName = $request->data("lunch");
+        $dinnerName = $request->data("dinner");
+        $food=new Food();
+        $breakFast=$food->get_by_name($breakFastName);
+        $lunch=$food->get_by_name($lunchName);
+        $dinner=$food->get_by_name($dinnerName);
+        $params=[
+            'breakFastName'=>$breakFast["name"],
+            'breakFastPrice'=>$breakFast["price"],
+            'lunchName'=>$lunch["name"],
+            'lunchPrice'=>$lunch["price"],
+            'dinnerName'=>$dinner["name"],
+            'dinnerPrice'=>$dinner["price"]
+        ];
+        View::render('menu.index',$params);
     }
 }
