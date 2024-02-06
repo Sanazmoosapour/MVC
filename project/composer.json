@@ -1,0 +1,24 @@
+{
+  "name": "sanaz/project",
+  "description": "my mvc project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "application/",
+      "Core\\": "bootstrap/"
+    },
+    "classmap": [
+      "application/"
+    ]
+  },
+  "files": ["bootstrap/helpers/app.php"],
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "sanaz",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  }
+}
