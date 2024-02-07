@@ -17,12 +17,12 @@ class menuController
         $lunch=$food->get_by_name($lunchName);
         $dinner=$food->get_by_name($dinnerName);
         $params=[
-            'breakFastName'=>$breakFast["name"],
-            'breakFastPrice'=>$breakFast["price"],
-            'lunchName'=>$lunch["name"],
-            'lunchPrice'=>$lunch["price"],
-            'dinnerName'=>$dinner["name"],
-            'dinnerPrice'=>$dinner["price"]
+            'breakFastName'=>$breakFast['name'],
+            'breakFastPrice'=>$breakFast['price'],
+            'lunchName'=>$lunch['name'],
+            'lunchPrice'=>$lunch['price'],
+            'dinnerName'=>$dinner['name'],
+            'dinnerPrice'=>$dinner['price']
         ];
         View::render('menu.index',$params);
     }
