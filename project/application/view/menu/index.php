@@ -1,21 +1,14 @@
+<!DOCTYPE html>
 <html>
+<title>MENU</title>
 <body>
-<section>
-    <h1>menu</h1>
+<h1>todays menu : </h1>
+    <h2>break fast</h2>
+    <td><?php echo $breakFastName." ".$breakFastPrice;?></td>
+    <h2>lunch</h2>
+    <td><?php echo $lunchName." ".$lunchPrice;?></td>
+    <h2>dinner</h2>
+    <td><?php echo $dinnerName." ".$dinnerPrice;?></td>
 
-    <table>
-        <tr>
-            <th>break fast</th>
-            <th>lunch</th>
-            <th>dinner</th>
-        </tr>
-            <tr>
-                <td><?php echo $breakFastName." ".$breakFastPrice;?></td>
-                <td><?php echo $lunchName." ".$lunchPrice;?></td>
-                <td><?php echo $dinnerName." ".$dinnerPrice;?></td>
-            </tr>
-
-    </table>
-</section>
 </body>
 </html>

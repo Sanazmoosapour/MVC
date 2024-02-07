@@ -6,9 +6,6 @@ class Food
 {
     private $db;
 
-
-
-
     public function __construct()
     {
         $this->db = new Database();
@@ -21,8 +18,6 @@ class Food
         return $result->fetch_assoc();
 
     }
-
-
     public function __destruct()
     {
         $this->db->close();
