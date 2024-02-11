@@ -2,7 +2,10 @@
 
 namespace model;
 
-class Food
+use App\model\Model;
+use Core\View;
+
+class Food implements Model
 {
     private $db;
 
@@ -21,5 +24,14 @@ class Food
     public function __destruct()
     {
         $this->db->close();
+    }
+
+    public function validate($result) : bool
+    {
+        if(!is_string($result['name']) || $result['price']<0){
+            return false;
+        }
+        return true;
+
     }
 }
