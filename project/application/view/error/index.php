@@ -1,4 +1,7 @@
 <html>
+<title>
+    ERROR
+</title>
 <body>
 
 <h1>ERROR</h1>
