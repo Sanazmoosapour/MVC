@@ -1,34 +1,34 @@
 <?php
-
-namespace model;
-
-use App\model\Model;
+namespace App\model;
 use Core\View;
 
-class Food implements Model
+
+class Food
 {
-    private $db;
+    public string $name;
+    public string $category;
+    public float $price;
+    public bool $is_valid;
 
-    public function __construct()
+
+
+    public function __construct($name,$price,$category)
     {
-        $this->db = new Database();
-
+        if($this->validate($name,$price,$category)) {
+            $this->name = $name;
+            $this->price = $price;
+            $this->category = $category;
+            $this->is_valid = true;
+        }
+        else{
+            $this->is_valid = false;
+        }
     }
-    public function get_by_name(string $name)
-    {
-        $sql = "SELECT * FROM my_resturant.foods WHERE name = '$name'";
-        $result = $this->db->query($sql);
-        return $result->fetch_assoc();
 
-    }
-    public function __destruct()
-    {
-        $this->db->close();
-    }
 
-    public function validate($result) : bool
+    public function validate($name,$price,$category) : bool
     {
-        if(!is_string($result['name']) || $result['price']<0){
+        if(!$name || !$category || $price<0){
             return false;
         }
         return true;

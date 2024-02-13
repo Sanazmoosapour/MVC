@@ -1,9 +1,11 @@
 <?php
 namespace App\controller;
 
+use Core\repository\repository;
+use Core\repository\repository_using_mysql;
 use Core\Request;
 use Core\View;
-use model\Food;
+use App\model\Food;
 
 class menuController implements mainController
 {
@@ -16,21 +18,23 @@ class menuController implements mainController
             View::render('error.index');
             return;
         }
-        $food = new Food();
-        $breakFast = $food->get_by_name($breakFastName);
-        $lunch = $food->get_by_name($lunchName);
-        $dinner = $food->get_by_name($dinnerName);
-        if( !$food->validate($breakFast) || !$food->validate($lunch) || !$food->validate($dinner)){
+        $db = new repository_using_mysql();
+        $breakFast = $db->get_food_by_name($breakFastName);
+        $lunch = $db->get_food_by_name($lunchName);
+        $dinner = $db->get_food_by_name($dinnerName);
+
+        if( !$breakFast->is_valid || !$lunch->is_valid || !$dinner->is_valid){
+            echo 'is valid';
             View::render('error.index');
             return;
         }
         $params = [
-            'breakFastName' => $breakFast['name'],
-            'breakFastPrice' => $breakFast['price'],
-            'lunchName' => $lunch['name'],
-            'lunchPrice' => $lunch['price'],
-            'dinnerName' => $dinner['name'],
-            'dinnerPrice' => $dinner['price']
+            'breakFastName' => $breakFast->name,
+            'breakFastPrice' => $breakFast->price,
+            'lunchName' => $lunch->name,
+            'lunchPrice' => $lunch->price,
+            'dinnerName' => $dinner->name,
+            'dinnerPrice' => $dinner->price
         ];
         View::render('menu.index',$params);
     }
