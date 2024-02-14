@@ -5,6 +5,7 @@ use Core\View;
 
 class Food
 {
+    public int $id;
     public string $name;
     public string $category;
     public string $restaurant;
@@ -13,9 +14,10 @@ class Food
 
 
 
-    public function __construct($name,$price,$category,$restaurant)
+    public function __construct($id,$name,$price,$category,$restaurant)
     {
         if($this->validate($name,$price,$category)) {
+            $this->id = $id;
             $this->name = $name;
             $this->price = $price;
             $this->restaurant = $restaurant;
@@ -23,7 +25,6 @@ class Food
             $this->is_valid = true;
         }
         else{
-            echo "here?";
             $this->is_valid = false;
         }
     }

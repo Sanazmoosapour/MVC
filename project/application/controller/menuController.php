@@ -1,34 +1,38 @@
 <?php
 namespace App\controller;
 
-use Core\repository\repository;
+
 use Core\repository\repository_using_mysql;
 use Core\Request;
 use Core\View;
-use App\model\Food;
+
 
 class menuController implements mainController
 {
     function control(Request $request)
     {
-        if($request->data('select')=='change'){
-            $this->changeMenu();
+        if($request->data('select') == 'change'){
+            $this->changeMenu($request);
         }
-        if($request->data('select')=='show'){
+        if($request->data('select') == 'show'){
             $this->showMenu($request);
         }
 
     }
 
-    function changeMenu()
+    function changeMenu(Request $request)
     {
-        View::render('changeMenu.index');
+
+        $params = [
+            'restaurantName' => $request->data('restaurant')
+        ];
+        View::render('changeMenu.index',$params);
 
     }
     function showMenu(Request $request)
     {
         $db = new repository_using_mysql();
-        $restaurant=$db->get_restaurant_by_name($request->data('restaurant'));
+        $restaurant = $db->get_restaurant_by_name($request->data('restaurant'));
         $params = [
             'breakFastName' => $restaurant->menu->break_fast->name,
             'breakFastPrice' => $restaurant->menu->break_fast->price,

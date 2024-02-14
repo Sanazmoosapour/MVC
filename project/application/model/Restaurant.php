@@ -14,9 +14,4 @@ class Restaurant
         $this->menu = $menu;
     }
 
-
-
-
-
-
 }
