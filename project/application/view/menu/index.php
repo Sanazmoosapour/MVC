@@ -3,11 +3,12 @@
 <title>MENU</title>
 <body>
 <h1>todays menu : </h1>
-    <h2>break fast</h2>
+<h2><?php echo $restaurantName;?> </h2>
+    <h3>break fast</h3>
     <td><?php echo $breakFastName." ".$breakFastPrice;?></td>
-    <h2>lunch</h2>
+    <h3>lunch</h3>
     <td><?php echo $lunchName." ".$lunchPrice;?></td>
-    <h2>dinner</h2>
+    <h3>dinner</h3>
     <td><?php echo $dinnerName." ".$dinnerPrice;?></td>
 
 </body>

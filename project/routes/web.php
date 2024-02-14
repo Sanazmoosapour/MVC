@@ -6,5 +6,5 @@ $app = new MVC();
 $app::get('/', 'homeController', 'control');
 
 $app::post('/index.php', 'menuController', 'control');
-
+$app::get('/index.php', 'menuController', 'control');
 $app->run();

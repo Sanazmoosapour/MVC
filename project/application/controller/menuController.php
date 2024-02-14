@@ -11,31 +11,35 @@ class menuController implements mainController
 {
     function control(Request $request)
     {
-        $breakFastName = $request->data("break");
-        $lunchName = $request->data("lunch");
-        $dinnerName = $request->data("dinner");
-        if(!$breakFastName || !$lunchName || !$dinnerName){
-            View::render('error.index');
-            return;
+        if($request->data('select')=='change'){
+            $this->changeMenu();
         }
-        $db = new repository_using_mysql();
-        $breakFast = $db->get_food_by_name($breakFastName);
-        $lunch = $db->get_food_by_name($lunchName);
-        $dinner = $db->get_food_by_name($dinnerName);
+        if($request->data('select')=='show'){
+            $this->showMenu($request);
+        }
 
-        if( !$breakFast->is_valid || !$lunch->is_valid || !$dinner->is_valid){
-            echo 'is valid';
-            View::render('error.index');
-            return;
-        }
+    }
+
+    function changeMenu()
+    {
+        View::render('changeMenu.index');
+
+    }
+    function showMenu(Request $request)
+    {
+        $db = new repository_using_mysql();
+        $restaurant=$db->get_restaurant_by_name($request->data('restaurant'));
         $params = [
-            'breakFastName' => $breakFast->name,
-            'breakFastPrice' => $breakFast->price,
-            'lunchName' => $lunch->name,
-            'lunchPrice' => $lunch->price,
-            'dinnerName' => $dinner->name,
-            'dinnerPrice' => $dinner->price
+            'breakFastName' => $restaurant->menu->break_fast->name,
+            'breakFastPrice' => $restaurant->menu->break_fast->price,
+            'lunchName' => $restaurant->menu->lunch->name,
+            'lunchPrice' => $restaurant->menu->lunch->price,
+            'dinnerName' => $restaurant->menu->dinner->name,
+            'dinnerPrice' => $restaurant->menu->dinner->price,
+            'restaurantName' => $restaurant->name
         ];
         View::render('menu.index',$params);
+
+
     }
 }

@@ -1,12 +1,18 @@
 <html>
 <body>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
-    break_fast: <input type="text" name="break">
-    lunch: <input type="text" name="lunch">
-    dinner: <input type="text" name="dinner">
+<form method="get" action="<?php echo $_SERVER['PHP_SELF'];?>">
+
+    what would you like to do ? :
+    <input type="radio" name="select"
+        <?php if (isset($select) && $select=="female") echo "checked";?>
+           value="show">Show
+    <input type="radio" name="select"
+        <?php if (isset($select) && $select=="male") echo "checked";?>
+           value="change">Change
+
+    name_of_restaurant : <input type="text" name="restaurant">
     <input type="submit">
 </form>
-
 </body>
 </html>

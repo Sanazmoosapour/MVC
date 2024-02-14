@@ -7,20 +7,23 @@ class Food
 {
     public string $name;
     public string $category;
+    public string $restaurant;
     public float $price;
     public bool $is_valid;
 
 
 
-    public function __construct($name,$price,$category)
+    public function __construct($name,$price,$category,$restaurant)
     {
         if($this->validate($name,$price,$category)) {
             $this->name = $name;
             $this->price = $price;
+            $this->restaurant = $restaurant;
             $this->category = $category;
             $this->is_valid = true;
         }
         else{
+            echo "here?";
             $this->is_valid = false;
         }
     }
