@@ -7,6 +7,7 @@ trait Router
     public static function get($url, $class, $method)
     {
 
+
         self::$map['get'][$url] = [
             'class'=>$class,
             'method'=>$method

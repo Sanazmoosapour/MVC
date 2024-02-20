@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit35073860b566d102377d420a5fda5e9a
 {
     public static $prefixLengthsPsr4 = array (
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
         'C' => 
         array (
             'Core\\' => 5,
@@ -18,6 +22,10 @@ class ComposerStaticInit35073860b566d102377d420a5fda5e9a
     );
 
     public static $prefixDirsPsr4 = array (
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
         'Core\\' => 
         array (
             0 => __DIR__ . '/../..' . '/bootstrap',
@@ -29,11 +37,15 @@ class ComposerStaticInit35073860b566d102377d420a5fda5e9a
     );
 
     public static $classMap = array (
+        'App\\controller\\changeMenuController' => __DIR__ . '/../..' . '/application/controller/changeMenuController.php',
         'App\\controller\\homeController' => __DIR__ . '/../..' . '/application/controller/homeController.php',
+        'App\\controller\\loginController' => __DIR__ . '/../..' . '/application/controller/loginController.php',
         'App\\controller\\mainController' => __DIR__ . '/../..' . '/application/controller/mainController.php',
         'App\\controller\\menuController' => __DIR__ . '/../..' . '/application/controller/menuController.php',
+        'App\\model\\Food' => __DIR__ . '/../..' . '/application/model/Food.php',
+        'App\\model\\Menu' => __DIR__ . '/../..' . '/application/model/Menu.php',
+        'App\\model\\Restaurant' => __DIR__ . '/../..' . '/application/model/Restaurant.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'model\\Food' => __DIR__ . '/../..' . '/application/model/Food.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

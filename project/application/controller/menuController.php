@@ -11,6 +11,9 @@ class menuController implements mainController
 {
     function control(Request $request)
     {
+        $token= $_COOKIE['token'];
+
+
         if($request->data('select') == 'change'){
             $this->changeMenu($request);
         }

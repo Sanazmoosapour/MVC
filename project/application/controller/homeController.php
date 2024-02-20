@@ -9,7 +9,7 @@ class homeController implements mainController
 {
     public function control(Request $request)
     {
-        View::render('home.index');
+        View::render('login.index');
     }
 
 }
