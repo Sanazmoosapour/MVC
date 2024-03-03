@@ -14,7 +14,7 @@ class signUpController implements mainController
     {
         $db=new repository_using_mysql();
 
-        $user=new User($db->get_last_id('users'),$request->name,$request->email,$request->password,false);
+        $user=new User($db->get_last_id('users')+1,$request->name,$request->email,$request->password,false);
 
         $result=$db->insert_user($user);
         if($result)

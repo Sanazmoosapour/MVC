@@ -17,13 +17,16 @@ class User
      * @param string $password
      * @param bool $isAdmin
      */
-    public function __construct(int $id, string $name, string $email, string $password, bool $isAdmin)
+    public function __construct(int $id, string $name, string $email, string $password, string $isAdmin)
     {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
-        $this->isAdmin = $isAdmin;
+        if($isAdmin=='true')
+            $this->isAdmin = true;
+        else
+            $this->isAdmin=false;
     }
 
 

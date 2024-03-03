@@ -5,13 +5,14 @@ use Core\repository\repository_using_mysql;
 use Core\Request;
 use Core\View;
 use App\model\Food;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class homeController implements mainController
 {
     public function control(Request $request)
     {
-        $token= $_COOKIE['token'];
-
+        $token= JWT::decode($_COOKIE['token'],new Key('23','HS256'));
         if($request->data('select') == 'change'){
             if($token->isAdmin)
                 View::render('changeMenu.index');

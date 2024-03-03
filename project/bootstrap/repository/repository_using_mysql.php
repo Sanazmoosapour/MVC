@@ -5,6 +5,7 @@ namespace Core\repository;
 use App\model\Food;
 use App\model\Menu;
 use App\model\Restaurant;
+use App\model\User;
 
 class repository_using_mysql implements repository
 {
@@ -81,21 +82,22 @@ class repository_using_mysql implements repository
 
         $sql = "SELECT *
                 FROM users
-                WHERE users.name = '$name' AND users.email = '$email' AND users.password = '$password'";
+                WHERE ((users.name = '$name') )";
         $result=$conn->query($sql)->fetch_assoc();
+        print_r($result);
         $conn->close();
         if($result==null)
                 return null;
-        return new User();
+        return new User($result['id'],$result['name'],$result['email'],$result['password'],$result['admin']);
     }
     public function insert_user($user)
     {
         $conn=$this->connect();
 
-        $sql = "INSERT INTO users VALUES('$user->name','$user->email','$user->password')";
-
+        $sql = "INSERT INTO `users` VALUES('$user->id','$user->name',$user->isAdmin,'$user->email','$user->password',NULL,NULL)";
+        $result=$conn->query($sql);
         $conn->close();
-        if($sql==true)
+        if($result==true)
             return true;
         return false;
     }
@@ -103,10 +105,10 @@ class repository_using_mysql implements repository
     {
         $conn=$this->connect();
 
-        $sql = "INSERT INTO order VALUES('$order->userId','$order->foodId')";
-
+        $sql = "INSERT INTO `order` VALUES('$order->order_id','$order->user_id','$order->food_id',NULL,NULL)";
+        $result=$conn->query($sql);
         $conn->close();
-        if($sql==true)
+        if($result==true)
             return true;
         return false;
     }
@@ -115,10 +117,10 @@ class repository_using_mysql implements repository
         $conn=$this->connect();
 
         $sql = "SELECT MAX(id)
-                FROM '$table'";
-
+                FROM $table";
+        $result=$conn->query($sql);
         $conn->close();
-        if($sql==true)
+        if($result==true)
             return true;
         return false;
     }
