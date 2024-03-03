@@ -110,4 +110,17 @@ class repository_using_mysql implements repository
             return true;
         return false;
     }
+    public function get_last_id($table)
+    {
+        $conn=$this->connect();
+
+        $sql = "SELECT MAX(id)
+                FROM '$table'";
+
+        $conn->close();
+        if($sql==true)
+            return true;
+        return false;
+    }
+
 }

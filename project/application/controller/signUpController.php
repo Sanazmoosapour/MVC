@@ -2,6 +2,7 @@
 
 namespace App\controller;
 
+use App\model\User;
 use Core\repository\repository_using_mysql;
 use Core\Request;
 use Core\View;
@@ -11,8 +12,10 @@ class signUpController implements mainController
 
     public function control(Request $request)
     {
-        $user=new User($request->name,$request->email,$request->password);
         $db=new repository_using_mysql();
+
+        $user=new User($db->get_last_id('users'),$request->name,$request->email,$request->password,false);
+
         $result=$db->insert_user($user);
         if($result)
             View::render('signIn.index');

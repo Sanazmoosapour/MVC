@@ -16,7 +16,8 @@ class orderController implements mainController
         $token=$_COOKIE['token'];
         $db=new repository_using_mysql();
         $food=$db->get_food_by_name($request->foodName,$request->restaurant);
-        $order=new Order($token->userId,$food->id);
+
+        $order=new Order($db->get_last_id('order'),$token->userId,$food->id);
         if($db->insert_order($order)){
             View::render('home.index');
             return;
