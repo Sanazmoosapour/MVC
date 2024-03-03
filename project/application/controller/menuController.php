@@ -11,29 +11,6 @@ class menuController implements mainController
 {
     function control(Request $request)
     {
-        $token= $_COOKIE['token'];
-
-
-        if($request->data('select') == 'change'){
-            $this->changeMenu($request);
-        }
-        if($request->data('select') == 'show'){
-            $this->showMenu($request);
-        }
-
-    }
-
-    function changeMenu(Request $request)
-    {
-
-        $params = [
-            'restaurantName' => $request->data('restaurant')
-        ];
-        View::render('changeMenu.index',$params);
-
-    }
-    function showMenu(Request $request)
-    {
         $db = new repository_using_mysql();
         $restaurant = $db->get_restaurant_by_name($request->data('restaurant'));
         $params = [
@@ -47,6 +24,11 @@ class menuController implements mainController
         ];
         View::render('menu.index',$params);
 
+    }
 
+
+    public function show()
+    {
+        // TODO: Implement show() method.
     }
 }

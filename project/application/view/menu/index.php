@@ -2,6 +2,7 @@
 <html>
 <title>MENU</title>
 <body>
+
 <h1>todays menu : </h1>
 <h2><?php echo $restaurantName;?> </h2>
     <h3>break fast</h3>

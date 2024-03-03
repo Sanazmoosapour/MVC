@@ -18,8 +18,9 @@ class MVC
     {
 
         $callable = $this->match($this->method(), $this->path());
-
+        echo $this->method(). $this->path()."whyyyyyyyyyyy\n";
         if (!$callable){
+            echo "here?";
             throw new \Exception('Oops! you are lost', 404);
         }
 
@@ -41,6 +42,7 @@ class MVC
     private function match($method, $url)
     {
         foreach (self::$map[$method] as $uri=>$call){
+
             if (substr($url, -1) === '/' && $uri != '/'){
                 $url = substr($url, 0, -1);
             }

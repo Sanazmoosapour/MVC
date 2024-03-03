@@ -29,4 +29,9 @@ class changeMenuController implements mainController
         View::render('home.index');
 
     }
+
+    public function show()
+    {
+        // TODO: Implement show() method.
+    }
 }

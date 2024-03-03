@@ -3,7 +3,7 @@
         'name' => 'sanaz/project',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'de97773d94915a2ca8e8644f184fe7bafdda5987',
+        'reference' => '64c3506a45aec894f184c704b75b37cafeccd181',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'sanaz/project' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'de97773d94915a2ca8e8644f184fe7bafdda5987',
+            'reference' => '64c3506a45aec894f184c704b75b37cafeccd181',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

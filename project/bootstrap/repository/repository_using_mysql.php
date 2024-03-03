@@ -75,4 +75,39 @@ class repository_using_mysql implements repository
                 new Food((int)$result[2][4],(string)$result[2][1],(float)$result[2][2],(string)$result[2][3],(string)$result[2][0])
     ));
     }
+    public function get_user_ifexist($name,$password,$email)
+    {
+        $conn=$this->connect();
+
+        $sql = "SELECT *
+                FROM users
+                WHERE users.name = '$name' AND users.email = '$email' AND users.password = '$password'";
+        $result=$conn->query($sql)->fetch_assoc();
+        $conn->close();
+        if($result==null)
+                return null;
+        return new User();
+    }
+    public function insert_user($user)
+    {
+        $conn=$this->connect();
+
+        $sql = "INSERT INTO users VALUES('$user->name','$user->email','$user->password')";
+
+        $conn->close();
+        if($sql==true)
+            return true;
+        return false;
+    }
+    public function insert_order($order)
+    {
+        $conn=$this->connect();
+
+        $sql = "INSERT INTO order VALUES('$order->userId','$order->foodId')";
+
+        $conn->close();
+        if($sql==true)
+            return true;
+        return false;
+    }
 }

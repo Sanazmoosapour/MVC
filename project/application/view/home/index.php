@@ -1,27 +1,20 @@
 <html>
 <body>
-
-<form method="get" action="<?php echo $_SERVER['PHP_SELF'];
-                                                               ?>" onclick="<?php
-header("jhviyvh: iubiubi");
-?>">
+<form method="post" action="http://localhost:8080/home" >
 
     what would you like to do ? :
     <input type="radio" name="select"
-        <?php
-        print_r(headers_list());
-        if (isset($select) && $select=="female") echo "checked";?>
+        <?php if (isset($select) && $select=="show") echo "checked";?>
            value="show">Show
     <input type="radio" name="select"
-        <?php if (isset($select) && $select=="male") echo "checked";?>
+        <?php if (isset($select) && $select=="change") echo "checked";?>
            value="change">Change
+    <input type="radio" name="select"
+        <?php if (isset($select) && $select=="order") echo "checked";?>
+           value="order">Order
+    <input type="submit"  >
 
-    name_of_restaurant : <input type="text" name="restaurant">
-    <input type="submit" >
 
 </form>
-<?php
-header("jhviyvh: iubiubi");
-?>
 </body>
 </html>

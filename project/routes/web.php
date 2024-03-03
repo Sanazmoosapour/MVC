@@ -3,8 +3,16 @@ use Core\MVC;
 
 $app = new MVC();
 
-$app::get('/', 'homeController', 'control');
+$app::get('/', 'signInController', 'show');
+$app::post('/makeAccount', 'signUpController', 'show');
+$app::post('/signIn', 'signInController', 'control');
+$app::post('/signUp', 'signUpController', 'control');
+$app::post('/home', 'homeController', 'control');
+$app::post('/order', 'orderController', 'control');
+$app::post('/showMenu', 'menuController', 'control');
+$app::post('/changeMenu', 'changeMenuController', 'control');
 
-$app::post('/index.php', 'loginController', 'control');
-$app::get('/index.php', 'menuController', 'control');
+
+
+
 $app->run();
