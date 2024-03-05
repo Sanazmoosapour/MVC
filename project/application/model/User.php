@@ -8,6 +8,7 @@ class User
     public string $name;
     public string $email;
     public string $password;
+    public string $discount_code;
     public bool $isAdmin;
 
     /**
@@ -15,14 +16,16 @@ class User
      * @param string $name
      * @param string $email
      * @param string $password
-     * @param bool $isAdmin
+     * @param string $discount_code
+     * @param string $isAdmin
      */
-    public function __construct(int $id, string $name, string $email, string $password, string $isAdmin)
+    public function __construct(int $id, string $name, string $email, string $password,string $discount_code, string $isAdmin)
     {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
+        $this->discount_code = $discount_code;
         if($isAdmin=='true')
             $this->isAdmin = true;
         else

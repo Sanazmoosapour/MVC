@@ -17,8 +17,17 @@ class orderController implements mainController
     {
         $token=JWT::decode($_COOKIE['token'],new Key('23','HS256'));
         $db=new repository_using_mysql();
-        $food=$db->get_food_by_name($request->foodName,$request->restaurant);
-        $order=new Order($db->get_last_id('order')+1,$token->userId,$food->id);
+        $restaurant = $db->get_restaurant_by_name($request->data('restaurant'));
+        if(!$restaurant->is_open){
+            View::render('home.index');
+            return;
+        }
+        if( !$db->get_user_by_id($token->userId)->discount_code == $request->data('discount')){
+            View::render('home.index');
+            return;
+        }
+        $food=$db->get_food_by_name_restaurant($request->data('foodName'),$request->data('restaurant'));
+        $order=new Order($db->get_last_id('order')+1,$token->userId,$food->id,$request->data('discount'));
         if($db->insert_order($order)){
             View::render('home.index');
             return;

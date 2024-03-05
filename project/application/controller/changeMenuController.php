@@ -16,9 +16,9 @@ class changeMenuController implements mainController
         }
         echo $request->data("restaurant");
         $db = new repository_using_mysql();
-        $breakFast = $db->get_food_by_name($request->data("break") , $request->data("restaurant"));
-        $lunch = $db->get_food_by_name($request->data("lunch") , $request->data("restaurant"));
-        $dinner = $db->get_food_by_name($request->data("dinner") , $request->data("restaurant"));
+        $breakFast = $db->get_food_by_name_restaurant($request->data("break") , $request->data("restaurant"));
+        $lunch = $db->get_food_by_name_restaurant($request->data("lunch") , $request->data("restaurant"));
+        $dinner = $db->get_food_by_name_restaurant($request->data("dinner") , $request->data("restaurant"));
         if( !$breakFast->is_valid || !$lunch->is_valid || !$dinner->is_valid){
             View::render('error.index');
             return;

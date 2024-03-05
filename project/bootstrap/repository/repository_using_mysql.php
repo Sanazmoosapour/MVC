@@ -32,7 +32,7 @@ class repository_using_mysql implements repository
         return $result;
     }
 
-    public function get_food_by_name($name,$restaurant)
+    public function get_food_by_name_restaurant($name, $restaurant)
     {
         $conn=$this->connect();
 
@@ -48,7 +48,6 @@ class repository_using_mysql implements repository
                 JOIN category c ON f.category_id = c.id 
                 WHERE (f.name = '$name') AND (r.name = '$restaurant')";
         $result=$conn->query($sql)->fetch_assoc();
-        echo $result['food_name'];
         $conn->close();
         return new Food($result['food_id'],$result['food_name'],$result['food_price'],$result['food_category'],$result['restaurant_name']);
     }
@@ -62,6 +61,7 @@ class repository_using_mysql implements repository
                     f.price AS 'food_price',
                     c.type AS 'food_category',
                     f.id AS 'food_id'
+                    r.is_open AS 'is_open'
     
                 FROM restaurant r
                 JOIN food f ON r.break_fast_id = f.id OR r.lunch_id = f.id OR r.dinner_id = f.id
@@ -74,7 +74,7 @@ class repository_using_mysql implements repository
                 new Food((int)$result[0][4], (string)$result[0][1] , (float)$result[0][2],(string)$result[0][3],(string)$result[0][0]),
                 new Food((int)$result[1][4],(string)$result[1][1],(float)$result[1][2],(string)$result[1][3],(string)$result[1][0]),
                 new Food((int)$result[2][4],(string)$result[2][1],(float)$result[2][2],(string)$result[2][3],(string)$result[2][0])
-    ));
+    ), $result[0][5]=='true');
     }
     public function get_user_ifexist($name,$password,$email)
     {
@@ -123,6 +123,45 @@ class repository_using_mysql implements repository
         if($result==true)
             return true;
         return false;
+    }
+    public function get_user_by_id($id)
+    {
+        $conn=$this->connect();
+
+        $sql = "SELECT *
+                FROM users
+                WHERE ((users.id = '$id') )";
+        $result=$conn->query($sql)->fetch_assoc();
+        print_r($result);
+        $conn->close();
+        if($result==null)
+            return null;
+        return new User($result['id'],$result['name'],$result['email'],$result['password'],$result['discount_code'],$result['admin']);
+    }
+
+    public function update_user_discountCode($user_id,$discountCode)
+    {
+        $conn=$this->connect();
+
+        $sql = "UPDATE users
+                    SET discount_code = '$discountCode'
+                    WHERE id = '$user_id';";
+        $result=$conn->query($sql);
+        $conn->close();
+        echo $result;
+        return $result;
+    }
+    public function get_food_by_name($name)
+    {
+        $conn=$this->connect();
+
+        $sql = "SELECT *
+    
+                FROM food f
+                WHERE (f.name = '$name') ";
+        $result=$conn->query($sql)->fetch_assoc();
+        $conn->close();
+        return new Food($result['food_id'],$result['food_name'],$result['food_price'],$result['food_category'],$result['restaurant_name']);
     }
 
 }

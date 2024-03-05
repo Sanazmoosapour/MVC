@@ -25,6 +25,15 @@ class homeController implements mainController
         else if($request->data('select') == 'order'){
             View::render('order.index');
         }
+        else if($request->data('select') == 'search'){
+            View::render('search.foodSearch');
+        }
+        else if($request->data('select') == 'add_discount_code'){
+            if($token->isAdmin)
+                View::render('addDiscount.index');
+            else
+                View::render('home.index');
+        }
 
     }
 

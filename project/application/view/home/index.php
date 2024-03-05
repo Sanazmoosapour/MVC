@@ -12,6 +12,12 @@
     <input type="radio" name="select"
         <?php if (isset($select) && $select=="order") echo "checked";?>
            value="order">Order
+    <input type="radio" name="select"
+        <?php if (isset($select) && $select=="search") echo "checked";?>
+           value="search">Search
+    <input type="radio" name="select"
+        <?php if (isset($select) && $select=="add_discount_code") echo "checked";?>
+           value="add_discount_code">Add_discount_code
     <input type="submit"  >
 
 
