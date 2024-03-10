@@ -5,11 +5,10 @@
 <body>
 
 <h1>Result : </h1>
-<h2><?php echo $name;?> </h2>
-    <h3>price : </h3>
-    <td><?php echo $price;?></td>
-    <h3>restaurant : </h3>
-    <td><?php echo $restaurant;?></td>
+<h2><?php foreach ($foods as $food){
+    print_r($food);
+    echo "\n";
+    }?> </h2>
 
 
 </body>

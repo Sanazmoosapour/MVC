@@ -60,8 +60,9 @@ class repository_using_mysql implements repository
                 	f.name AS 'food_name',
                     f.price AS 'food_price',
                     c.type AS 'food_category',
-                    f.id AS 'food_id'
-                    r.is_open AS 'is_open'
+                    f.id AS 'food_id',
+                    r.open_time AS 'open_time',
+                    r.close_time AS 'close_time'
     
                 FROM restaurant r
                 JOIN food f ON r.break_fast_id = f.id OR r.lunch_id = f.id OR r.dinner_id = f.id
@@ -69,12 +70,19 @@ class repository_using_mysql implements repository
                 WHERE r.name = '$name'";
         $result=$conn->query($sql)->fetch_all();
         $conn->close();
+        $open_time=strtotime((string)$result[0][5]);
+        $close_time=strtotime((string)$result[0][6]);
+        $current=time();
+        $is_open=false;
+        if($current>$open_time && $current<$close_time){
+            $is_open = true;
+        }
         return new Restaurant((string)$result[0][0],
             new Menu((string)$result[0][0],
                 new Food((int)$result[0][4], (string)$result[0][1] , (float)$result[0][2],(string)$result[0][3],(string)$result[0][0]),
                 new Food((int)$result[1][4],(string)$result[1][1],(float)$result[1][2],(string)$result[1][3],(string)$result[1][0]),
                 new Food((int)$result[2][4],(string)$result[2][1],(float)$result[2][2],(string)$result[2][3],(string)$result[2][0])
-    ), $result[0][5]=='true');
+    ), $is_open);
     }
     public function get_user_ifexist($name,$password,$email)
     {
@@ -82,7 +90,7 @@ class repository_using_mysql implements repository
 
         $sql = "SELECT *
                 FROM users
-                WHERE ((users.name = '$name') )";
+                WHERE (users.name = '$name') AND (users.password = '$password') AND (users.email = '$email') ";
         $result=$conn->query($sql)->fetch_assoc();
         print_r($result);
         $conn->close();
@@ -158,10 +166,17 @@ class repository_using_mysql implements repository
         $sql = "SELECT *
     
                 FROM food f
-                WHERE (f.name = '$name') ";
-        $result=$conn->query($sql)->fetch_assoc();
+                WHERE (f.name = '%$name%') ";
+        $result=$conn->query($sql);
         $conn->close();
-        return new Food($result['food_id'],$result['food_name'],$result['food_price'],$result['food_category'],$result['restaurant_name']);
+        $foods = [] ;
+        $i=0;
+        while($row = $result->fetch_assoc()) {
+            $foods[$i] = new Food ( $row['food_id'],$row['food_name'],$row['food_price'],$row['food_category'],$row['restaurant_name']);
+            $i = $i+1;
+        }
+
+        return $foods;
     }
 
 }
