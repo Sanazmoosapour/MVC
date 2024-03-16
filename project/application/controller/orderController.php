@@ -31,7 +31,7 @@ class orderController implements mainController
 
         $food=$db->get_food_by_name_restaurant($request->data('foodName'),$request->data('restaurant'));
         if($request->data('discount')){
-            $price = $food->price * (100 - $db->getDiscountPercent)/100.0;
+            $price = $food->price * (100 - $db->getDiscountPercent($request->data('discount'))->percent)/100.0;
         }
         else
             $price = $food->price;

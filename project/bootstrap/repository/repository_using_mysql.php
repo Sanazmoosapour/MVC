@@ -178,5 +178,16 @@ class repository_using_mysql implements repository
 
         return $foods;
     }
+    public function getDiscountPercent($code)
+    {
+        $conn=$this->connect();
+
+        $sql = "SELECT *
+                FROM DiscountCode dc
+                WHERE dc.code = '$code') ";
+        $result=$conn->query($sql)->fetch_assoc();
+
+        return $result['percent'];
+    }
 
 }
