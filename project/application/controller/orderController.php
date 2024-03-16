@@ -22,17 +22,26 @@ class orderController implements mainController
             View::render('home.index');
             return;
         }
-        if( !$db->get_user_by_id($token->userId)->discount_code == $request->data('discount')){
-            View::render('home.index');
-            return;
+        if($request->data('discount')) {
+            if (!$db->get_user_by_id($token->userId)->discount_code == $request->data('discount')) {
+                View::render('home.index');
+                return;
+            }
         }
+
         $food=$db->get_food_by_name_restaurant($request->data('foodName'),$request->data('restaurant'));
-        $order=new Order($db->get_last_id('order')+1,$token->userId,$food->id,$request->data('discount'));
-        if($db->insert_order($order)){
-            View::render('home.index');
-            return;
+        if($request->data('discount')){
+            $price = $food->price * (100 - $db->getDiscountPercent)/100.0;
         }
-        View::render('order.index');
+        else
+            $price = $food->price;
+        $order=new Order($db->get_last_id('order')+1,$token->userId,$food->id,$price);
+
+        $params = [
+            'foodName' => $food->name,
+        ];
+        View::render('invoice.index',$params);
+
 
 
     }

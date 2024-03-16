@@ -13,6 +13,8 @@ $app::post('/showMenu', 'menuController', 'control');
 $app::post('/changeMenu', 'changeMenuController', 'control');
 $app::post('/addDiscount', 'addDiscountController', 'control');
 $app::post('/Search', 'SearchController', 'control');
+$app::post('/setOrder', 'SearchController', 'control');
+
 
 
 
