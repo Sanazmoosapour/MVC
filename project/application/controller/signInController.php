@@ -13,9 +13,9 @@ class signInController implements mainController
 
     public function control(Request $request)
     {
-        $db=new repository_using_mysql();
-        $user=$db->get_user_ifexist($request->data('name'),$request->data('email'),$request->data('email'));
-        if($user==null){
+        $db = new repository_using_mysql();
+        $user = $db->get_user_ifexist($request->data('name'), $request->data('email'), $request->data('email'));
+        if($user == null){
             View::render('signIn.index');
             return;
         }

@@ -20,7 +20,7 @@ class Order
         $this->order_id = $order_id;
         $this->user_id = $user_id;
         $this->food_id = $food_id;
-        $this->price=$price;
+        $this->price = $price;
     }
 
 

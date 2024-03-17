@@ -12,7 +12,7 @@ class homeController implements mainController
 {
     public function control(Request $request)
     {
-        $token= JWT::decode($_COOKIE['token'],new Key('23','HS256'));
+        $token = JWT::decode($_COOKIE['token'],new Key('23','HS256'));
         if($request->data('select') == 'change'){
             if($token->isAdmin)
                 View::render('changeMenu.index');

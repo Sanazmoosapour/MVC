@@ -26,14 +26,14 @@ class repository_using_mysql implements repository
         $sql = "UPDATE restaurant
                     SET break_fast_id = '$break_fast->id' , lunch_id = '$lunch->id' , dinner_id = '$dinner->id'
                     WHERE name = '$restaurant_name';";
-        $result=$conn->query($sql);
+        $result = $conn->query($sql);
         $conn->close();
         return $result;
     }
 
     public function get_food_by_name_restaurant($name, $restaurant)
     {
-        $conn=$this->connect();
+        $conn = $this->connect();
 
         $sql = "SELECT
                     f.id AS 'food_id',
@@ -46,7 +46,7 @@ class repository_using_mysql implements repository
                 JOIN restaurant r ON f.restaurant_id = r.id 
                 JOIN category c ON f.category_id = c.id 
                 WHERE (f.name = '$name') AND (r.name = '$restaurant')";
-        $result=$conn->query($sql)->fetch_assoc();
+        $result = $conn->query($sql)->fetch_assoc();
         $conn->close();
         return new Food($result['food_id'],$result['food_name'],$result['food_price'],$result['food_category'],$result['restaurant_name']);
     }

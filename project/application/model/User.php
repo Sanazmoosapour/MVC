@@ -26,10 +26,10 @@ class User
         $this->email = $email;
         $this->password = $password;
         $this->discount_code = $discount_code;
-        if($isAdmin=='true')
+        if($isAdmin == 'true')
             $this->isAdmin = true;
         else
-            $this->isAdmin=false;
+            $this->isAdmin = false;
     }
 
 

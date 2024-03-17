@@ -15,8 +15,8 @@ class orderController implements mainController
 
     public function control(Request $request)
     {
-        $token=JWT::decode($_COOKIE['token'],new Key('23','HS256'));
-        $db=new repository_using_mysql();
+        $token = JWT::decode($_COOKIE['token'],new Key('23','HS256'));
+        $db = new repository_using_mysql();
         $restaurant = $db->get_restaurant_by_name($request->data('restaurant'));
         if(!$restaurant->is_open){
             View::render('home.index');
@@ -29,7 +29,7 @@ class orderController implements mainController
             }
         }
 
-        $food=$db->get_food_by_name_restaurant($request->data('foodName'),$request->data('restaurant'));
+        $food = $db->get_food_by_name_restaurant($request->data('foodName'),$request->data('restaurant'));
         if($request->data('discount') != ''){
             $price = $food->price * (100 - $db->getDiscountPercent($request->data('discount'))->percent)/100.0;
         }

@@ -15,10 +15,10 @@ class invoiceController implements mainController
 
     public function control(Request $request)
     {
-        $token=JWT::decode($_COOKIE['token'],new Key('23','HS256'));
-        $db=new repository_using_mysql();
-        $food=$db->get_food_by_name_restaurant($request->data('name'),$request->data('restaurant'));
-        $order=new Order($db->get_last_id('my_resturant.order')+1,$token->userId,$food->id,$request->data('price'));
+        $token = JWT::decode($_COOKIE['token'],new Key('23','HS256'));
+        $db = new repository_using_mysql();
+        $food = $db->get_food_by_name_restaurant($request->data('name'),$request->data('restaurant'));
+        $order = new Order($db->get_last_id('my_resturant.order')+1,$token->userId,$food->id,$request->data('price'));
         $db->insert_order($order);
         View::render('home.index');
     }

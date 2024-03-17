@@ -12,11 +12,11 @@ class signUpController implements mainController
 
     public function control(Request $request)
     {
-        $db=new repository_using_mysql();
+        $db = new repository_using_mysql();
 
-        $user=new User($db->get_last_id('users')+1,$request->name,$request->email,$request->password,"",true);
+        $user = new User($db->get_last_id('users')+1, $request->name, $request->email, $request->password, "", true);
 
-        $result=$db->insert_user($user);
+        $result = $db->insert_user($user);
         if($result)
             View::render('signIn.index');
         else

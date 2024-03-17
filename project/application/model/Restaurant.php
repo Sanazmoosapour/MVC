@@ -12,7 +12,7 @@ class Restaurant
     {
         $this->name = $name;
         $this->menu = $menu;
-        $this->is_open=$is_open;
+        $this->is_open = $is_open;
     }
 
 }
