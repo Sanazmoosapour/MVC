@@ -29,7 +29,7 @@ class homeController implements mainController
             View::render('search.foodSearch');
         }
         else if($request->data('select') == 'add_discount_code'){
-            if($token->isAdmin)
+            if($token->isAdmin == 'true')
                 View::render('addDiscount.index');
             else
                 View::render('home.index');

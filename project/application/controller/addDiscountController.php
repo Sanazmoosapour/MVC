@@ -15,7 +15,7 @@ class addDiscountController implements mainController
     {
         $token= JWT::decode($_COOKIE['token'],new Key('23','HS256'));
         $db = new repository_using_mysql();
-        $db->update_user_discountCode($token->userId,$request->data('discount'));
+        $db->update_user_discountCode($request->data('userId'),$request->data('code'));
         View::render('home.index');
     }
 

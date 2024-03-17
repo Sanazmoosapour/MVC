@@ -13,7 +13,7 @@ class Order
      * @param int $order_id
      * @param int $user_id
      * @param int $food_id
-     * @param string $price
+     * @param float $price
      */
     public function __construct(int $order_id, int $user_id, int $food_id,float $price)
     {

@@ -2,6 +2,7 @@
 
 namespace Core\repository;
 
+use App\model\DiscountCode;
 use App\model\Food;
 use App\model\Menu;
 use App\model\Restaurant;
@@ -72,9 +73,12 @@ class repository_using_mysql implements repository
         $conn->close();
         $open_time=strtotime((string)$result[0][5]);
         $close_time=strtotime((string)$result[0][6]);
-        $current=time();
+        $current= time();
         $is_open=false;
-        if($current>$open_time && $current<$close_time){
+        echo "open time".$result[0][5];
+        echo "close time".$close_time;
+        echo "current".$current;
+        if($current>$result[0][5] && $current<$result[0][6]){
             $is_open = true;
         }
         return new Restaurant((string)$result[0][0],
@@ -90,20 +94,27 @@ class repository_using_mysql implements repository
 
         $sql = "SELECT *
                 FROM users
-                WHERE (users.name = '$name') AND (users.password = '$password') AND (users.email = '$email') ";
+                WHERE (users.name = '$name') ";
         $result=$conn->query($sql)->fetch_assoc();
         print_r($result);
         $conn->close();
         if($result==null)
                 return null;
-        return new User($result['id'],$result['name'],$result['email'],$result['password'],$result['admin']);
+
+        $discount = $result['discount_code'];
+        if($discount == NULL){
+            $discount = '';
+        }
+
+        return new User($result['id'],$result['name'],$result['email'],$result['password'],$discount,$result['admin']);
     }
     public function insert_user($user)
     {
         $conn=$this->connect();
 
-        $sql = "INSERT INTO `users` VALUES('$user->id','$user->name',$user->isAdmin,'$user->email','$user->password',NULL,NULL)";
+        $sql = "INSERT INTO `users` VALUES('$user->id','$user->name','$user->isAdmin','$user->email','$user->password',NULL,NULL,NULL)";
         $result=$conn->query($sql);
+
         $conn->close();
         if($result==true)
             return true;
@@ -113,7 +124,7 @@ class repository_using_mysql implements repository
     {
         $conn=$this->connect();
 
-        $sql = "INSERT INTO `order` VALUES('$order->order_id','$order->user_id','$order->food_id',NULL,NULL)";
+        $sql = "INSERT INTO `order` VALUES('$order->order_id','$order->user_id','$order->food_id','$order->price',NULL,NULL)";
         $result=$conn->query($sql);
         $conn->close();
         if($result==true)
@@ -159,20 +170,22 @@ class repository_using_mysql implements repository
         echo $result;
         return $result;
     }
-    public function get_food_by_name($name)
+    public function get_foods_by_name($name)
     {
         $conn=$this->connect();
 
-        $sql = "SELECT *
+        $sql = "SELECT f.id,f.name,f.price,r.name AS restaurant, c.type AS category
     
                 FROM food f
-                WHERE (f.name = '%$name%') ";
+                JOIN restaurant r ON  f.restaurant_id = r.id
+                JOIN category c ON f.category_id = c.id 
+                WHERE f.name LIKE '%$name%'";
         $result=$conn->query($sql);
         $conn->close();
         $foods = [] ;
         $i=0;
         while($row = $result->fetch_assoc()) {
-            $foods[$i] = new Food ( $row['food_id'],$row['food_name'],$row['food_price'],$row['food_category'],$row['restaurant_name']);
+            $foods[$i] = new Food ( $row['id'],$row['name'],$row['price'],$row['category'],$row['restaurant']);
             $i = $i+1;
         }
 
@@ -183,11 +196,11 @@ class repository_using_mysql implements repository
         $conn=$this->connect();
 
         $sql = "SELECT *
-                FROM DiscountCode dc
-                WHERE dc.code = '$code') ";
-        $result=$conn->query($sql)->fetch_assoc();
+                FROM discount_code dc
+                WHERE (dc.code = '$code') ";
 
-        return $result['percent'];
+        $result=$conn->query($sql)->fetch_assoc();
+        return new DiscountCode($code,$result['percent']);
     }
 
 }

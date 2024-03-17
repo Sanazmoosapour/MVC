@@ -12,11 +12,10 @@ class searchController implements mainController
     public function control(Request $request)
     {
         $db = new repository_using_mysql();
-        $foods = $db->get_food_by_name($request->data('foodName'));
+        $foods = $db->get_foods_by_name($request->data('food'));
+        print_r($foods);
         $params = [
             'foods' => $foods,
-
-
         ];
         View::render('search.index',$params);
     }
