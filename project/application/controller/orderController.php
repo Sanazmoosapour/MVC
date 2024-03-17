@@ -19,21 +19,17 @@ class orderController implements mainController
         $db=new repository_using_mysql();
         $restaurant = $db->get_restaurant_by_name($request->data('restaurant'));
         if(!$restaurant->is_open){
-            echo "not open";
             View::render('home.index');
             return;
         }
         if($request->data('discount') != '') {
             if (!$db->get_user_by_id($token->userId)->discount_code == $request->data('discount')) {
-                echo "bad discount code";
                 View::render('home.index');
                 return;
             }
         }
 
         $food=$db->get_food_by_name_restaurant($request->data('foodName'),$request->data('restaurant'));
-        echo $food->name;
-        echo "is_valid?".$food->is_valid;
         if($request->data('discount') != ''){
             $price = $food->price * (100 - $db->getDiscountPercent($request->data('discount'))->percent)/100.0;
         }

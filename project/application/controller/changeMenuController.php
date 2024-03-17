@@ -14,7 +14,6 @@ class changeMenuController implements mainController
             View::render('error.index');
             return;
         }
-        echo $request->data("restaurant");
         $db = new repository_using_mysql();
         $breakFast = $db->get_food_by_name_restaurant($request->data("break") , $request->data("restaurant"));
         $lunch = $db->get_food_by_name_restaurant($request->data("lunch") , $request->data("restaurant"));
@@ -23,7 +22,6 @@ class changeMenuController implements mainController
             View::render('error.index');
             return;
         }
-        echo $breakFast->id;
         $db->update_restaurant_menu($request->data("restaurant"),$breakFast,$lunch,$dinner);
 
         View::render('home.index');

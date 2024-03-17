@@ -22,14 +22,12 @@ class repository_using_mysql implements repository
     public function update_restaurant_menu($restaurant_name,$break_fast,$lunch,$dinner)
     {
         $conn=$this->connect();
-        echo $restaurant_name;
-        echo $break_fast->name;
+
         $sql = "UPDATE restaurant
                     SET break_fast_id = '$break_fast->id' , lunch_id = '$lunch->id' , dinner_id = '$dinner->id'
                     WHERE name = '$restaurant_name';";
         $result=$conn->query($sql);
         $conn->close();
-        echo $result;
         return $result;
     }
 
@@ -75,9 +73,7 @@ class repository_using_mysql implements repository
         $close_time=strtotime((string)$result[0][6]);
         $current= time();
         $is_open=false;
-        echo "open time".$result[0][5];
-        echo "close time".$close_time;
-        echo "current".$current;
+
         if($current>$result[0][5] && $current<$result[0][6]){
             $is_open = true;
         }
@@ -96,7 +92,6 @@ class repository_using_mysql implements repository
                 FROM users
                 WHERE (users.name = '$name') ";
         $result=$conn->query($sql)->fetch_assoc();
-        print_r($result);
         $conn->close();
         if($result==null)
                 return null;
@@ -151,7 +146,6 @@ class repository_using_mysql implements repository
                 FROM users
                 WHERE ((users.id = '$id') )";
         $result=$conn->query($sql)->fetch_assoc();
-        print_r($result);
         $conn->close();
         if($result==null)
             return null;
