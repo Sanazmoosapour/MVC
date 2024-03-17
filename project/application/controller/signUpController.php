@@ -20,7 +20,7 @@ class signUpController implements mainController
         if($result)
             View::render('signIn.index');
         else
-            View::render('signUp.index');
+            View::render('error.in_valid');
     }
 
     public function show()

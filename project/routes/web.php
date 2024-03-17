@@ -4,6 +4,7 @@ use Core\MVC;
 $app = new MVC();
 
 $app::get('/', 'signInController', 'show');
+$app::post('/', 'homeController', 'show');
 $app::post('/makeAccount', 'signUpController', 'show');
 $app::post('/signIn', 'signInController', 'control');
 $app::post('/signUp', 'signUpController', 'control');

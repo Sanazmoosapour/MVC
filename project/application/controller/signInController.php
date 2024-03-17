@@ -16,7 +16,7 @@ class signInController implements mainController
         $db = new repository_using_mysql();
         $user = $db->get_user_ifexist($request->data('name'), $request->data('email'), $request->data('email'));
         if($user == null){
-            View::render('signIn.index');
+            View::render('error.in_valid');
             return;
         }
         $secret_Key  = '23';
@@ -31,7 +31,6 @@ class signInController implements mainController
         $token = JWT::encode($request_data,$secret_Key,'HS256');
         setcookie("token",$token,$expire_at,"/","",true,true);
         View::render('home.index');
-
     }
 
     public function show()

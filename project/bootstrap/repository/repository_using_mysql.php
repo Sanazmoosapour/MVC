@@ -69,11 +69,8 @@ class repository_using_mysql implements repository
                 WHERE r.name = '$name'";
         $result=$conn->query($sql)->fetch_all();
         $conn->close();
-        $open_time=strtotime((string)$result[0][5]);
-        $close_time=strtotime((string)$result[0][6]);
         $current= time();
         $is_open=false;
-
         if($current>$result[0][5] && $current<$result[0][6]){
             $is_open = true;
         }

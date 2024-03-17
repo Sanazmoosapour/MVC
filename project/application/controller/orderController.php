@@ -19,12 +19,12 @@ class orderController implements mainController
         $db = new repository_using_mysql();
         $restaurant = $db->get_restaurant_by_name($request->data('restaurant'));
         if(!$restaurant->is_open){
-            View::render('home.index');
+            View::render('error.in_valid');
             return;
         }
         if($request->data('discount') != '') {
             if (!$db->get_user_by_id($token->userId)->discount_code == $request->data('discount')) {
-                View::render('home.index');
+                View::render('error.in_valid');
                 return;
             }
         }

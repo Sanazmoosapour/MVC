@@ -17,7 +17,7 @@ class homeController implements mainController
             if($token->isAdmin)
                 View::render('changeMenu.index');
             else
-                View::render('home.index');
+                View::render('error.no_access');
         }
         else if($request->data('select') == 'show'){
             View::render('menu.selectRestaurant');
@@ -32,7 +32,7 @@ class homeController implements mainController
             if($token->isAdmin == 'true')
                 View::render('addDiscount.index');
             else
-                View::render('home.index');
+                View::render('error.no_access');
         }
 
     }

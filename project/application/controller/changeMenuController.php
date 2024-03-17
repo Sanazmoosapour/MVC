@@ -11,7 +11,7 @@ class changeMenuController implements mainController
     public function control(Request $request)
     {
         if(!$request->data("break") || !$request->data("lunch") || !$request->data("dinner") || !$request->data("restaurant")){
-            View::render('error.index');
+            View::render('error.in_valid');
             return;
         }
         $db = new repository_using_mysql();
@@ -19,7 +19,7 @@ class changeMenuController implements mainController
         $lunch = $db->get_food_by_name_restaurant($request->data("lunch") , $request->data("restaurant"));
         $dinner = $db->get_food_by_name_restaurant($request->data("dinner") , $request->data("restaurant"));
         if( !$breakFast->is_valid || !$lunch->is_valid || !$dinner->is_valid){
-            View::render('error.index');
+            View::render('error.in_valid');
             return;
         }
         $db->update_restaurant_menu($request->data("restaurant"),$breakFast,$lunch,$dinner);
