@@ -71,7 +71,7 @@ class repository_using_mysql implements repository
         $conn->close();
         $current= time();
         $is_open=false;
-        if($current>$result[0][5] && $current<$result[0][6]){
+        if($current>=$result[0][5] && $current<$result[0][6]){
             $is_open = true;
         }
         return new Restaurant((string)$result[0][0],
@@ -79,7 +79,7 @@ class repository_using_mysql implements repository
                 new Food((int)$result[0][4], (string)$result[0][1] , (float)$result[0][2],(string)$result[0][3],(string)$result[0][0]),
                 new Food((int)$result[1][4],(string)$result[1][1],(float)$result[1][2],(string)$result[1][3],(string)$result[1][0]),
                 new Food((int)$result[2][4],(string)$result[2][1],(float)$result[2][2],(string)$result[2][3],(string)$result[2][0])
-    ), $is_open);
+                    ), $is_open);
     }
     public function get_user_ifexist($name,$password,$email)
     {
@@ -115,7 +115,6 @@ class repository_using_mysql implements repository
     public function insert_order($order)
     {
         $conn=$this->connect();
-
         $sql = "INSERT INTO `order` VALUES('$order->order_id','$order->user_id','$order->food_id','$order->price',NULL,NULL)";
         $result=$conn->query($sql);
         $conn->close();
@@ -127,13 +126,14 @@ class repository_using_mysql implements repository
     {
         $conn=$this->connect();
 
-        $sql = "SELECT MAX(id)
-                FROM $table";
+        $sql = "SELECT id
+                FROM $table
+                ORDER BY id DESC
+                LIMIT 1";
+        echo $sql;
         $result=$conn->query($sql);
         $conn->close();
-        if($result==true)
-            return true;
-        return false;
+        return $result->fetch_assoc()['id'];
     }
     public function get_user_by_id($id)
     {

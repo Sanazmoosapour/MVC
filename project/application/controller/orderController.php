@@ -19,6 +19,7 @@ class orderController implements mainController
         $db = new repository_using_mysql();
         $restaurant = $db->get_restaurant_by_name($request->data('restaurant'));
         if(!$restaurant->is_open){
+            echo "not open";
             View::render('error.in_valid');
             return;
         }

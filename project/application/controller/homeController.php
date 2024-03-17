@@ -34,6 +34,9 @@ class homeController implements mainController
             else
                 View::render('error.no_access');
         }
+        else if($request->data('select') == 'change_account'){
+                View::render('signIn.index');
+        }
 
     }
 

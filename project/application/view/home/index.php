@@ -18,6 +18,9 @@
     <input type="radio" name="select"
         <?php if (isset($select) && $select=="add_discount_code") echo "checked";?>
            value="add_discount_code">Add_discount_code
+    <input type="radio" name="select"
+        <?php if (isset($select) && $select=="change_account") echo "checked";?>
+           value="change_account">Change_Account
     <input type="submit"  >
 
 
